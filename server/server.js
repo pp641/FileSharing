@@ -3,12 +3,10 @@ const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
 
-// Create an Express app
 const app = express();
 
-// Set up middleware
 app.use(cors({
-  origin: 'http://localhost:3000', // Allow requests from this origin
+  origin: 'http://192.168.1.7:3000',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -33,12 +31,6 @@ io.on('connection', (socket) => {
       callback('Received your datass');
     }
   });
-
-  socket.on('696969', (data, callback) => {
-    console.log('Server responded withss:', data);
-    callback('REceibed data')
-  });
-
   socket.on('answer', (answer) => {
   });
 
@@ -46,6 +38,11 @@ io.on('connection', (socket) => {
     console.log('Broadcasting message:', message, socket.id);
     message.senderId = socket.id
     io.emit('receiveMessage', message);
+  });
+
+  socket.on('sendTextMessage', (message) => {
+    console.log('Received message:', message);
+    socket.broadcast.emit('receiveTextMessage', message); // Broadcast to all clients except the sender
   });
 
   socket.on('ice-candidate', (candidate) => {
@@ -58,6 +55,18 @@ io.on('connection', (socket) => {
     socket.emit('share-event-response', { data: 'Response data for all clients' });
 
   });
+
+
+  socket.on('sendVoiceMessage', (message) => {
+    console.log('Broadcasting message:', message);
+    socket.broadcast.emit('receiveVoiceMessage', message);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+
+
 
   socket.on('disconnect', () => {
     console.log('Client disconnected');

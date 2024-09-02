@@ -1,11 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
-import Filesharing from './Filesharing';
+import FileSharing from './fileSharing';
+import TextMessage from './TextMessage';
+import SpeechRecognitionComponent from './speechToText';
 
 function App() {
   return (
     <div className="App">
-     <Filesharing/>
+      <FileSharing/>
+      <TextMessage/>
+      <SpeechRecognitionComponent/>
     </div>
   );
 }
