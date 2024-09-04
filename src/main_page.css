@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Stylish&display=swap');
+
+
+.dashboard-outer{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: auto;
+    background-color: black;
+    padding: 2em;
+}
+.dashboard-upper{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    width: auto;
+    font-size: 3em;
+    font-family: Georgia;
+    color: white;
+    background-color: black;
+    padding: 1% 1% 6% 1%;
+    transition: all 2s ease-in-out;
+}
+
+.dashboard-upper:hover{
+    font-size: 8em;
+    font-family: "Cormorant Upright";
+    transition: all 2s ease-in-out;
+}
+
+.dashboard-inner{
+    border: 2px solid #3d3232;
+    padding: 3em;
+    width: 15em;
+    height: 15em;
+    margin: 2em 8em 2em 8em;
+    background-color: rgb(216, 195, 236);
+    border-radius: 0.3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease-in-out;
+}
+
+
+.dashboard-inner:hover{
+    cursor: pointer;
+    background-color: rgb(236, 124, 124);
+    width: 20em;
+    height: 20em;
+    color: green;
+    transition: all 0.5s ease-in-out;
+}

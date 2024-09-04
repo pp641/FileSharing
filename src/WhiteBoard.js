@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faEraser, faUndo } from '@fortawesome/free-solid-svg-icons'; // Import undo icon for reset button
-import './App.css'; // Ensure you have this CSS file or add styles directly in App.js
 
 const WhiteBoard = () => {
   const [socket, setSocket] = useState(null);

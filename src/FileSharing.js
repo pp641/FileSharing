@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
 
-const Filesharing = () => {
+const FileSharing = () => {
+  const { id } = useParams(); // Get the ID from the URL
   const [socket, setSocket] = useState(null);
-  const [newState, setNewState] = useState(true);
   const [file, setFile] = useState(null);
-  const [currentSocketId, setCurrentSocketId] = useState(null);
-  const [downlaodable , setDownloadable] = useState(null);
+  const [downloadable, setDownloadable] = useState(null);
 
   useEffect(() => {
-    // Initialize socket connection
+    // Initialize socket connection with room ID
     const socketInstance = io('http://192.168.1.7:5000/', {
       transports: ['websocket', 'polling'],
     });
@@ -18,78 +18,51 @@ const Filesharing = () => {
 
     socketInstance.on('connect', () => {
       console.log('Connected to server');
-      setCurrentSocketId(socketInstance.id);
-    });
-
-    socketInstance.on('test-connect', () => {
-      console.log('hello test connect');
+      socketInstance.emit('joinRoom', id); // Join the room with the ID
     });
 
     socketInstance.on('receiveMessage', (message) => {
       console.log('Received message:', message);
-      const { fileName, fileData, senderId } = message;
-     if(senderId !== socketInstance.id){ 
+      const { fileName, fileData, senderId , roomId } = message;
+      console.log("ok coming", message);
+      if ((senderId !== socketInstance.id) && (roomId === id )) {
         const blob = new Blob([fileData], { type: 'application/octet-stream' });
         const url = URL.createObjectURL(blob);
         setDownloadable({ url, fileName });
-    }
+      }
     });
-
-
 
     return () => {
       socketInstance.disconnect();
       console.log('Disconnected from server');
     };
-  }, []);
-
-  const doShare = () => {
-      console.log('okodok');
-    if (socket) {
-      socket.emit('share-event', { data: 'some data' }, (response) => {
-        console.log('Server responded with:', response);
-      });
-
-      socket.emit('696969', { data: 'some datass' }, (response) => {
-        console.log('Server responded with:', response);
-      });
-
-    } else {
-      console.log('Socket is not connected');
-    }
-  };
-
+  }, [id]);
 
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
-
   const sendMessage = () => {
     if (socket && file) {
       const reader = new FileReader();
       reader.onload = () => {
-        socket.emit('sendMessage', { fileName: file.name, fileData: reader.result });
+        socket.emit('sendMessage', { fileName: file.name, fileData: reader.result, roomId: id });
       };
       reader.readAsArrayBuffer(file);
     } else {
       console.log('Socket is not connected or no file selected');
     }
   };
-  
 
   return (
     <div className="App">
-      <h1>Socket.io Client Connection</h1>
-      <h1>
-        Share some files: <button onClick={doShare}>Do</button>
-      </h1>
+      <h1>File Sharing Room: {id}</h1>
       <input type="file" onChange={handleFileChange} />
-      <button onClick={sendMessage}>Send Broadcast Message</button>
-      {downlaodable === null ? ""  : (
+      <button onClick={sendMessage}>Send File</button>
+      {downloadable && (
         <div>
-          <a href={downlaodable?.url} download={downlaodable?.fileName}>
-            <button>Download {downlaodable?.fileName}</button>
+          <a href={downloadable.url} download={downloadable.fileName}>
+            <button>Download {downloadable.fileName}</button>
           </a>
         </div>
       )}
@@ -97,4 +70,4 @@ const Filesharing = () => {
   );
 };
 
-export default Filesharing;
+export default FileSharing;
