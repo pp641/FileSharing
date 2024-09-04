@@ -2,9 +2,8 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
-const app = express();
 
-const roomUsers = {}
+const app = express();
 
 app.use(cors({
   origin: 'http://192.168.1.7:3000',
@@ -13,24 +12,14 @@ app.use(cors({
   credentials: true
 }));
 
+// Create an HTTP server and integrate it with the Express app
 const server = http.createServer(app);
 
+// Attach Socket.io to the HTTP server
 const io = socketIo(server);
 
 io.on('connection', (socket) => {
-
-
-  socket.on('joinRoom', (roomId) => {
-    socket.join(roomId);
-    console.log(`Socket ${socket.id} joined room ${roomId}`);
-    if (!roomUsers[roomId]) {
-      roomUsers[roomId] = new Set();
-    }
-    roomUsers[roomId].add(socket.id);
-    console.log("room okoko", roomUsers)
-    io.to(roomId).emit('userCountUpdate',  roomUsers[roomId].size , roomUsers );
-  });
-
+  console.log('New client connected', socket.id  );
   socket.on('share-event', (data, callback) => {
     console.log('Received share-event with data:', data);
 
@@ -44,7 +33,7 @@ io.on('connection', (socket) => {
 
   socket.on('sendMessage', (message) => {
     console.log('Broadcasting message:', message, socket.id);
-    message.senderId = socket.id
+    message.senderId = socket.idz
     io.emit('receiveMessage', message);
   });
 
@@ -79,18 +68,11 @@ io.on('connection', (socket) => {
   });
 
   socket.on('disconnect', () => {
-    console.log(`Socket ${socket.id} disconnected`);
+    console.log('Client disconnected');
+  });
 
-    for (const [roomId, users] of Object.entries(roomUsers)) {
-      if (users.has(socket.id)) {
-        users.delete(socket.id);
-        console.log("oktelll" , roomUsers)
-        io.to(roomId).emit('userCountUpdate', users.size , roomUsers);
-        if (users.size === 0) {
-          delete roomUsers[roomId];
-        }
-      }
-    }
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
   });
 });
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import io from 'socket.io-client';
+import "./Styles/filesharingstyles.css"
 
 const FileSharing = () => {
   const { id } = useParams(); // Get the ID from the URL
   const [socket, setSocket] = useState(null);
   const [file, setFile] = useState(null);
+  const [users, setUsers] = useState([])
   const [userCount, setUserCount] = useState(0); 
   const [downloadable, setDownloadable] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0); // State for upload progress
@@ -76,29 +78,29 @@ const FileSharing = () => {
   };
 
   return (
-    <div className="App">
-      <h1>Share Your Files Here</h1>
+  <div>
+    <div className="file_sharing_main">
+      <div>Share Your Files Here</div>
       <div>Count : {userCount}</div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={sendMessage} disabled={!file}>
+      <input className='input_file_type' type="file" onChange={handleFileChange} />
+      <button  className='button_file_sharing'  onClick={sendMessage} disabled={!file}>
         Send File
       </button>
-
       {uploadProgress > 0 && (
         <div>
           <progress value={uploadProgress} max="100" />
           <span>{uploadProgress}%</span>
         </div>
       )}
-
       {downloadable && (
         <div>
           <a href={downloadable.url} download={downloadable.fileName}>
-            <button>Download {downloadable.fileName}</button>
+            <button className='button_file_sharing2'>Download {downloadable.fileName}</button>
           </a>
         </div>
       )}
     </div>
+  </div>
   );
 };
 
