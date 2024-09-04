@@ -7,7 +7,7 @@ const app = express();
 const endpoint = process.env.NODE_ENV === "production" ? "/" : "http://localhost/3000"
 
 app.use(cors({
-  origin: '/',
+  origin: "*",
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true

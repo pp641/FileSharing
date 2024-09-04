@@ -15,9 +15,12 @@ const VideoChat = () => {
   let peerConnection;
 
   useEffect(() => {
-    const socketInstance = io(process.env.SOCKET_URL || '/',{
-        transports : ['websockets', 'polling']
+    
+
+    const socketInstance = io( process.env.NODE_ENV === 'production' ? "https://file-sharing-okhttps//file-sharing-ok3a-1tpjf9v8h-pp641s-projects.vercel.app" : "http://localhost:5000"  , {
+      transports: ['websocket', 'polling'],
     });
+
     setSocket(socketInstance);
 
     socketInstance.on('signal', async (data) => {

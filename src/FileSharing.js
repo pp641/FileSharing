@@ -9,8 +9,8 @@ const Filesharing = () => {
   const [downlaodable , setDownloadable] = useState(null);
 
   useEffect(() => {
-
-    const socketInstance = io(process.env.SOCKET_URL || '/', {
+    // Initialize socket connection
+    const socketInstance = io( process.env.NODE_ENV === 'production' ? "https://file-sharing-okhttps//file-sharing-ok3a-1tpjf9v8h-pp641s-projects.vercel.app" : "http://localhost:5000"  , {
       transports: ['websocket', 'polling'],
     });
 
