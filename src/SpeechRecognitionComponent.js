@@ -9,7 +9,7 @@ const SpeechRecognitionComponent = () => {
   const [recognition, setRecognition] = useState(null);
 
   useEffect(() => {
-    const socketInstance = io('http://192.168.1.7:5000/',{
+    const socketInstance = io(process.env.SOCKET_URL || '/',{
         transports: ['websocket', 'polling'],
 
     });

@@ -4,9 +4,10 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 
 const app = express();
+const endpoint = process.env.NODE_ENV === "production" ? "/" : "http://192.168.1.7/3000"
 
 app.use(cors({
-  origin: 'http://192.168.1.7:3000',
+  origin: '/',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -20,9 +21,6 @@ const io = socketIo(server);
 
 io.on('connection', (socket) => {
   console.log('New client connected', socket.id  );
-
-
-
   socket.on('share-event', (data, callback) => {
     console.log('Received share-event with data:', data);
 
@@ -56,6 +54,14 @@ io.on('connection', (socket) => {
 
   });
 
+  socket.on('signal', (data) => {
+    socket.broadcast.emit('signal', data);
+  });
+
+  socket.on('draw', (data) => {
+    socket.broadcast.emit('draw', data);
+  });
+
 
   socket.on('sendVoiceMessage', (message) => {
     console.log('Broadcasting message:', message);
@@ -66,15 +72,13 @@ io.on('connection', (socket) => {
     console.log('Client disconnected');
   });
 
-
-
   socket.on('disconnect', () => {
     console.log('Client disconnected');
   });
 });
 
 // Start the server
-server.listen(5000, () => {
+server.listen(process.env.PORT || 5000, () => {
   console.log('Signaling server is running on port 5000');
 });
 

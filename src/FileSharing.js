@@ -9,8 +9,8 @@ const Filesharing = () => {
   const [downlaodable , setDownloadable] = useState(null);
 
   useEffect(() => {
-    // Initialize socket connection
-    const socketInstance = io('http://localhost:5000/', {
+
+    const socketInstance = io(process.env.SOCKET_URL || '/', {
       transports: ['websocket', 'polling'],
     });
 
