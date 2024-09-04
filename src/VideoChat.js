@@ -13,14 +13,12 @@ const VideoChat = () => {
 
   let localStream;
   let peerConnection;
+  const prodEnv = process.env.NODE_ENV === 'development' ? process.env.SOCKET_URL :"/"
 
   useEffect(() => {
-    
-
-    const socketInstance = io( process.env.NODE_ENV === 'production' ? "https://file-sharing-okhttps//file-sharing-ok3a-1tpjf9v8h-pp641s-projects.vercel.app" : "http://localhost:5000"  , {
-      transports: ['websocket', 'polling'],
+    const socketInstance = io(prodEnv ,{
+        transports : ['websockets', 'polling']
     });
-
     setSocket(socketInstance);
 
     socketInstance.on('signal', async (data) => {
