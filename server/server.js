@@ -4,7 +4,7 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 
 const app = express();
-const endpoint = process.env.NODE_ENV === "production" ? "/" : "http://192.168.1.7/3000"
+const endpoint = process.env.NODE_ENV === "production" ? "/" : "http://localhost/3000"
 
 app.use(cors({
   origin: '/',
