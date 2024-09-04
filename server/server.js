@@ -4,10 +4,9 @@ const socketIo = require('socket.io');
 const cors = require('cors');
 
 const app = express();
-const endpoint = process.env.NODE_ENV === "production" ? "/" : "http://localhost/3000"
 
 app.use(cors({
-  origin: "*",
+  origin: 'http://192.168.1.7:3000',
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type'],
   credentials: true
@@ -78,7 +77,7 @@ io.on('connection', (socket) => {
 });
 
 // Start the server
-server.listen(process.env.PORT || 5000, () => {
+server.listen(5000, () => {
   console.log('Signaling server is running on port 5000');
 });
 

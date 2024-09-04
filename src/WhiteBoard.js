@@ -14,9 +14,8 @@ const WhiteBoard = () => {
   const [currentPosition, setCurrentPosition] = useState({ x: 0, y: 0 });
   const [isEraserActive, setIsEraserActive] = useState(false);
 
-  const prodEnv = process.env.NODE_ENV === 'development' ? process.env.SOCKET_URL :"/"
   useEffect(() => {
-    const socketInstance = io(prodEnv, {
+    const socketInstance = io('http://192.168.1.7:5000', {
       transports: ['websocket', 'polling'],
     });
     setSocket(socketInstance);

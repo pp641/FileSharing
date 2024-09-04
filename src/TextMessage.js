@@ -6,10 +6,9 @@ const TextMessage = () => {
   const [message, setMessage] = useState('');
   const [receivedMessages, setReceivedMessages] = useState([]);
 
-  const prodEnv = process.env.NODE_ENV === 'development' ? process.env.SOCKET_URL :"/"
   useEffect(() => {
     // Initialize socket connection
-    const socketInstance = io( prodEnv, {
+    const socketInstance = io('http://192.168.1.7:5000/', {
       transports: ['websocket', 'polling'],
     });
 
