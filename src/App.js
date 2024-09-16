@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
-import './Styles/main_page.css';
 import FileSharing from './FileSharing';
 import TextMessage from './TextMessage';
 import SpeechRecognitionComponent from './SpeechRecognitionComponent';
@@ -36,91 +35,105 @@ const Home = () => {
   };
 
   return (
-    <React.Fragment>
-      <div className='dashboard-upper'>Some Socket Apps for Fun</div>
-      <div className='dashboard-outer'>
-        <div className='dashboard-inner'>
-          <Link to={`/file-sharing/${defaultId}`}>File Sharing</Link>
-          <input 
-            type='text' 
-            value={fileSharingId} 
-            onChange={(e) => handleInputChange(e, setFileSharingId, setIsFileSharingEnabled)} 
-            placeholder='Enter ID for File Sharing'
+    <div className="flex flex-col items-center py-8 bg-gray-100 min-h-screen">
+      <h1 className="text-3xl font-bold mb-8 text-gray-800">Socket Apps for Fun</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* File Sharing */}
+        <div className="bg-white p-6 shadow-lg rounded-lg w-full">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">File Sharing</h2>
+          <input
+            type="text"
+            value={fileSharingId}
+            onChange={(e) => handleInputChange(e, setFileSharingId, setIsFileSharingEnabled)}
+            placeholder="Enter ID for File Sharing"
+            className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
           />
-          <button 
-            onClick={() => handleButtonClick('/file-sharing', fileSharingId)} 
-            disabled={!isFileSharingEnabled} 
-            className={isFileSharingEnabled ? 'enabled-button' : 'disabled-button'}
+          <button
+            onClick={() => handleButtonClick('/file-sharing', fileSharingId)}
+            disabled={!isFileSharingEnabled}
+            className={`w-full py-2 rounded-lg ${isFileSharingEnabled ? 'bg-blue-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
           >
             Open File Sharing
           </button>
         </div>
-        <div className='dashboard-inner'>
-          <Link to={`/text-message/${defaultId}`}>Text Sharing</Link>
-          <input 
-            type='text' 
-            value={textMessageId} 
-            onChange={(e) => handleInputChange(e, setTextMessageId, setIsTextMessageEnabled)} 
-            placeholder='Enter ID for Text Message'
+
+        {/* Text Sharing */}
+        <div className="bg-white p-6 shadow-lg rounded-lg w-full">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Text Sharing</h2>
+          <input
+            type="text"
+            value={textMessageId}
+            onChange={(e) => handleInputChange(e, setTextMessageId, setIsTextMessageEnabled)}
+            placeholder="Enter ID for Text Message"
+            className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
           />
-          <button 
-            onClick={() => handleButtonClick('/text-message', textMessageId)} 
-            disabled={!isTextMessageEnabled} 
-            className={isTextMessageEnabled ? 'enabled-button' : 'disabled-button'}
+          <button
+            onClick={() => handleButtonClick('/text-message', textMessageId)}
+            disabled={!isTextMessageEnabled}
+            className={`w-full py-2 rounded-lg ${isTextMessageEnabled ? 'bg-green-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
           >
-            Open Text Message
+            Open Text Sharing
           </button>
         </div>
-        <div className='dashboard-inner'>
-          <Link to={`/speech-recognition/${defaultId}`}>Speech Recognition</Link>
-          <input 
-            type='text' 
-            value={speechRecognitionId} 
-            onChange={(e) => handleInputChange(e, setSpeechRecognitionId, setIsSpeechRecognitionEnabled)} 
-            placeholder='Enter ID for Speech Recognition'
+
+        {/* Speech Recognition */}
+        <div className="bg-white p-6 shadow-lg rounded-lg w-full">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Speech Recognition</h2>
+          <input
+            type="text"
+            value={speechRecognitionId}
+            onChange={(e) => handleInputChange(e, setSpeechRecognitionId, setIsSpeechRecognitionEnabled)}
+            placeholder="Enter ID for Speech Recognition"
+            className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
           />
-          <button 
-            onClick={() => handleButtonClick('/speech-recognition', speechRecognitionId)} 
-            disabled={!isSpeechRecognitionEnabled} 
-            className={isSpeechRecognitionEnabled ? 'enabled-button' : 'disabled-button'}
+          <button
+            onClick={() => handleButtonClick('/speech-recognition', speechRecognitionId)}
+            disabled={!isSpeechRecognitionEnabled}
+            className={`w-full py-2 rounded-lg ${isSpeechRecognitionEnabled ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
           >
             Open Speech Recognition
           </button>
         </div>
-        <div className='dashboard-inner'>
-          <Link to={`/whiteboard-canvas/${defaultId}`}>Whiteboard Canvas</Link>
-          <input 
-            type='text' 
-            value={whiteboardId} 
-            onChange={(e) => handleInputChange(e, setWhiteboardId, setIsWhiteboardEnabled)} 
-            placeholder='Enter ID for Whiteboard'
+
+        {/* Whiteboard */}
+        <div className="bg-white p-6 shadow-lg rounded-lg w-full">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Whiteboard Canvas</h2>
+          <input
+            type="text"
+            value={whiteboardId}
+            onChange={(e) => handleInputChange(e, setWhiteboardId, setIsWhiteboardEnabled)}
+            placeholder="Enter ID for Whiteboard"
+            className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
           />
-          <button 
-            onClick={() => handleButtonClick('/whiteboard-canvas', whiteboardId)} 
-            disabled={!isWhiteboardEnabled} 
-            className={isWhiteboardEnabled ? 'enabled-button' : 'disabled-button'}
+          <button
+            onClick={() => handleButtonClick('/whiteboard-canvas', whiteboardId)}
+            disabled={!isWhiteboardEnabled}
+            className={`w-full py-2 rounded-lg ${isWhiteboardEnabled ? 'bg-purple-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
           >
             Open Whiteboard
           </button>
         </div>
-        <div className='dashboard-inner'>
-          <Link to={`/video-chat/${defaultId}`}>Video Chatting</Link>
-          <input 
-            type='text' 
-            value={videoChatId} 
-            onChange={(e) => handleInputChange(e, setVideoChatId, setIsVideoChatEnabled)} 
-            placeholder='Enter ID for Video Chat'
+
+        {/* Video Chat */}
+        <div className="bg-white p-6 shadow-lg rounded-lg w-full">
+          <h2 className="text-xl font-semibold mb-4 text-gray-700">Video Chatting</h2>
+          <input
+            type="text"
+            value={videoChatId}
+            onChange={(e) => handleInputChange(e, setVideoChatId, setIsVideoChatEnabled)}
+            placeholder="Enter ID for Video Chat"
+            className="border border-gray-300 rounded-lg p-2 mb-4 w-full"
           />
-          <button 
-            onClick={() => handleButtonClick('/video-chat', videoChatId)} 
-            disabled={!isVideoChatEnabled} 
-            className={isVideoChatEnabled ? 'enabled-button' : 'disabled-button'}
+          <button
+            onClick={() => handleButtonClick('/video-chat', videoChatId)}
+            disabled={!isVideoChatEnabled}
+            className={`w-full py-2 rounded-lg ${isVideoChatEnabled ? 'bg-yellow-500 text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
           >
             Open Video Chat
           </button>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   );
 }
 

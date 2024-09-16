@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Stylish&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Stylish&display=swap');
+ */
+ @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 
 .dashboard-outer{
@@ -6,7 +8,7 @@
     justify-content: space-around;
     flex-wrap: wrap;
     width: auto;
-    background-color: black;
+    background-color: #07166b;
     padding: 2em;
 }
 .dashboard-upper{
@@ -24,7 +26,7 @@
 
 .dashboard-upper:hover{
     font-size: 8em;
-    font-family: "Cormorant Upright";
+    font-family: "IBM Plex Serif";
     transition: all 2s ease-in-out;
 }
 
@@ -34,8 +36,8 @@
     width: 15em;
     height: 15em;
     margin: 2em 8em 2em 8em;
-    background-color: rgb(216, 195, 236);
-    border-radius: 0.3em;
+    background-color: rgb(164 164 57);
+    border-radius: 0.5em;
     display: flex;
     justify-content: center;
     flex-direction: column;
